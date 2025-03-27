@@ -19,7 +19,8 @@ final class SerieController extends AbstractController
         $offset = ($page - 1) * $nbParPage;
         $criterias = ['status' => $status];
         $nbTotal = $serieRepository->count($status === 'all' ? [] : $criterias);
-        $series =  $serieRepository->findBySeveralCriterias($status,$offset,$nbParPage); //requete personnalisée
+        //$series =  $serieRepository->findBySeveralCriterias($status,$offset,$nbParPage); //requete personnalisée
+        $series = $serieRepository->findBy($status === 'all' ? [] : $criterias, ['name' => 'ASC'], $nbParPage, $offset); //requete générique
 
 
         return $this->render('serie/list.html.twig', [
